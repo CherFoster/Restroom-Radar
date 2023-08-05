@@ -11,23 +11,17 @@ class User(db.Model):
     last_name = db.Column(db.String)
 
 
-    def __repr__(self):
-        return f'''
-            First Name: {self.first_name}
-            Last Name: {self.last_name}
-        '''
-
 class Bathroom(db.Model):
     __tablename__ = 'bathrooms'
 
     id = db.Column(db.Integer, primary_key=True)
-    neighborhood = db.Column(db.String)
-    reviews = db.Column(db.String) #shoud come from Review table
+    bathroom_name = db.Column(db.String)
+    reviews = db.Column(db.String) #should come from Review table
+    street_num = db.Column(db.Integer)
+    street_name = db.Column(db.String)
+    city = db.Column(db.String)
+    zip_code = db.Column(db.Integer)
 
-    def __repr__(self):
-        return f''' 
-            Neighborhood: {self.neighborhood}
-        '''
 
 
 class Review(db.Model):
@@ -39,7 +33,3 @@ class Review(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, update=db.func.now())
 
-    def __repr__(self):
-        return f'''
-            User Name: {self.user_name}
-        '''
