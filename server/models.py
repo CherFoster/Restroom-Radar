@@ -16,7 +16,7 @@ class Bathroom(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     bathroom_name = db.Column(db.String)
-    reviews = db.Column(db.String) #should come from Review table
+    reviews = db.Column(db.String, db.ForeignKey('reviews.id')) 
     street_num = db.Column(db.Integer)
     street_name = db.Column(db.String)
     city = db.Column(db.String)
@@ -28,8 +28,9 @@ class Review(db.Model):
     __tablename__ = 'reviews'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String) #come from User First_name
-    bathroom = db.Column(db.String) #come from Bathroom_Id
+    user_id = db.Column(db.String, db.ForeignKey('users.id')) 
+    bathroom_id = db.Column(db.String, db.ForeignKey('bathrooms.id')) 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, update=db.func.now())
 
+  
