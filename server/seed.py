@@ -13,6 +13,11 @@ with app.app_context():
     Bathroom.query.delete()
     Review.query.delete()
 
+    
+#seeeding?
+
+
+
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
