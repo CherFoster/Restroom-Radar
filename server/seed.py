@@ -2,11 +2,13 @@
 from random import randint, choice as rc
 
 # Remote library imports
-from faker import Faker
+# from faker import Faker
 
 # Local imports
 from config import app, db
 from models import User, Bathroom, Review
+
+# fake = Faker()
 
 with app.app_context():
     Review.query.delete()
@@ -62,12 +64,11 @@ with app.app_context():
     bathrooms.append(b13)
 
 
-    db.session.add(bathrooms)
-    db.append_all(bathrooms)
+    db.session.add_all(bathrooms)
+    db.session.commit()
 
 
 if __name__ == '__main__':
-    fake = Faker()
     with app.app_context():
         print("Starting seed...")
         # Seed code goes here!
