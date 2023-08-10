@@ -6,6 +6,7 @@ from faker import Faker
 
 # Local imports
 from app import app
+from config import app, db
 from models import User, Bathroom, Review
 
 with app.app_context():
@@ -54,6 +55,10 @@ with app.app_context():
 
     b13 = Bathroom(bathroom_name='Kos Kaffee' , street_num=251, street_name='5th Avenue', city='Brooklyn', zip_code=10019 )
     bathrooms.append(b13)
+
+
+db.session.add(bathrooms)
+db.session.commit()
 
 
 if __name__ == '__main__':
