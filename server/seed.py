@@ -9,9 +9,15 @@ from config import app, db
 from models import User, Bathroom, Review
 
 with app.app_context():
-    User.query.delete()
-    Bathroom.query.delete()
     Review.query.delete()
+    db.session.commit()
+    
+    Bathroom.query.delete()
+    db.session.commit()
+    
+    User.query.delete()
+    db.session.commit()
+    
 
     
     bathrooms = []

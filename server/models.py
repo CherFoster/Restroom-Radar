@@ -3,7 +3,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from config import db
 
 class User(db.Model):
-    tablename = 'users'
+    __tablename__= 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
@@ -11,7 +11,7 @@ class User(db.Model):
 
 
 class Bathroom(db.Model):
-    tablename = 'bathrooms'
+    __tablename__ = 'bathrooms'
 
     id = db.Column(db.Integer, primary_key=True)
     bathroom_name = db.Column(db.String)
@@ -24,7 +24,7 @@ class Bathroom(db.Model):
 
 
 class Review(db.Model):
-    tablename = 'reviews'
+    __tablename__ = 'reviews'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id')) 
