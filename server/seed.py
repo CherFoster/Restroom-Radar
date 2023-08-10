@@ -5,7 +5,6 @@ from random import randint, choice as rc
 from faker import Faker
 
 # Local imports
-from app import app
 from config import app, db
 from models import User, Bathroom, Review
 
@@ -57,8 +56,8 @@ with app.app_context():
     bathrooms.append(b13)
 
 
-db.session.add(bathrooms)
-db.session.commit()
+    db.session.add(bathrooms)
+    db.append_all(bathrooms)
 
 
 if __name__ == '__main__':
