@@ -68,7 +68,7 @@ with app.app_context():
     db.session.commit()
 
 
-if __name__ == '__main__':
-    with app.app_context():
-        print("Starting seed...")
-        # Seed code goes here!
+# if __name__ == '__main__':
+#     with app.app_context():
+#         print("Starting seed...")
+#         # Seed code goes here!
