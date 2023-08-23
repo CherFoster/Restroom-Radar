@@ -38,10 +38,15 @@ class Bathroom(Resource):
 def index():
     return '<h1> Welcome to Restroom Radar NYC </h1>'
 
+@app.route('/bathroom', methods=['GET']) #master list of bathrooms
+def get_bathrooms():
+    all_bathrooms = Bathroom.query.all()
+    return [ bathroom.to_dict() for bathroom in all_bathrooms]
 
-# @app.route('/bathroom') #master list of bathrooms
-api.add_resource(Users, '/users', endpoint ='users')
-api.add_resource(Bathroom, '/bathroom', endpoint='bahtroom')
+
+# @app.route('/bathroom') 
+# api.add_resource(Users, '/users', endpoint ='users')
+# api.add_resource(Bathroom, '/bathroom', endpoint='bahtroom')
 
 
 #need route to create & read,possibly update user
