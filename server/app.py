@@ -14,7 +14,7 @@ class Users(Resource):
 
 class Bathroom(Resource):
     def get(self):
-        bathroom = [bathroom.to_dict() for artist in Bathroom.query.all()]
+        bathroom = [bathroom.to_dict() for bathroom in Bathroom.query.all()]
         return make_response(bathroom, 200)
     
     def post(self):
@@ -53,3 +53,8 @@ if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
 
+# GET /games would give back all of the games, index (READ)
+# POST /games would create one game, CREATE
+# GET /games/<int:id> gives us one game READ
+# PATCH /games/<int:id> updating a game
+# DELETE /games/<int:id> destroying a game
