@@ -4,11 +4,11 @@ from sqlalchemy import ForeignKey
 from config import db
 
 
-user_bathrooms = db.Table(
-    'user_bathrooms', 
-    db.Column('user_id', db.Integer, db.ForeignKey('user_id'), primary_key=True),
-    db.Column('bathroom_id', db.Integer, db.ForeignKey('bathroom_id'), primary_key=True)
-    )
+# user_bathrooms = db.Table(
+#     'user_bathrooms', 
+#     db.Column('user_id', db.Integer, db.ForeignKey('user_id'), primary_key=True),
+#     db.Column('bathroom_id', db.Integer, db.ForeignKey('bathroom_id'), primary_key=True)
+#     )
 
 
 class User(db.Model, SerializerMixin):
@@ -21,13 +21,13 @@ class User(db.Model, SerializerMixin):
     # _password_hash = db.Column(db.String)
 
     reviews = db.relationship('Review', backref='user')
-    bathroom = db.realtionship('Bathroom', secondary=user_bathrooms, backref='users')
+    # bathroom = db.realtionship('Bathroom', secondary=user_bathrooms, backref='users')
 
-    serialize_rules = (
-        '-users_reviews',
-        '-bathrooms_reviews',
-        '-reviews_user'
-    )
+    # serialize_rules = (
+    #     '-users_reviews',
+    #     '-bathrooms_reviews',
+    #     '-reviews_user'
+    # )
 
     def __repr__(self):
         return f'<User {self.id} {self.username}>'
