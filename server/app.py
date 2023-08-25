@@ -12,7 +12,7 @@ class Users(Resource):
         return make_response(users, 200)
     
 
-class Bathroom(Resource):
+class Bathrooms(Resource):
     def get(self):
         bathroom = [bathroom.to_dict() for bathroom in Bathroom.query.all()]
         return make_response(bathroom, 200)
@@ -26,7 +26,7 @@ class Bathroom(Resource):
         city = request_json.get('city')
         zip_code = request_json.get('genres')
 
-        bathroom = Bathroom(
+        bathroom = Bathrooms(
             bathroom_name=bathroom_name,
             street_num=street_num,
             street_name=street_name,
@@ -38,7 +38,7 @@ class Bathroom(Resource):
 def index():
     return '<h1> Welcome to Restroom Radar NYC </h1>'
 
-@app.route('/bathroom', methods=['GET']) #master list of bathrooms
+@app.route('/bathrooms', methods=['GET']) #master list of bathrooms
 def get_bathrooms():
     all_bathrooms = Bathroom.query.all()
     return [ bathroom.to_dict() for bathroom in all_bathrooms]
