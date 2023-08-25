@@ -1,7 +1,68 @@
-:root {
-  --bg: #282c34;
-  --header: #fff;
-  --link: #61dafb;
-  --text: hsla(0, 0%, 100%, 0.88);
+
+/* General Styles */
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f6f9fc;
+  color: #333;
 }
 
+/* Cartoon Bubbly Comment Styles */
+.bubbly-comment {
+  position: relative;
+  background-color: white;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px 0;
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bubbly-comment:before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  border-width: 14px 14px 0;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+/* NavBar Styles */
+.navbar {
+  background-color: #080808;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  color: #fefeff;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar h3:hover {
+  color: #3c3cff;
+}
+
+/* Home Section Styles */
+.home-section {
+  background-color: white;
+  padding: 25px;
+  margin: 25px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Add this line to center the content */
+}
+/* Brand Styles */
+.brand {
+  font-size: 28px;
+  font-weight: bold;
+}

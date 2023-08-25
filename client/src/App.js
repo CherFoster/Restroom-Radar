@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
+import Home from './components/Home'
+import NavBar from './components/NavBar'
 import { Switch, Route } from "react-router-dom";
 
 function App() {
-  return <h1>Welcome to Restroom Radar NYC </h1>;
+  return <div>
+    <NavBar/>
+    <Home/>
+  </div>;
 }
 
 export default App;
