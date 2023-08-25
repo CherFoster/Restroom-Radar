@@ -1,38 +1,32 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, Table, Column, Integer, String, ForeignKeyConstraint
 from config import db
 
-
-# user_bathrooms = db.Table(
-#     'user_bathrooms', 
-#     db.Column('user_id', db.Integer, db.ForeignKey('user_id'), primary_key=True),
-#     db.Column('bathroom_id', db.Integer, db.ForeignKey('bathroom_id'), primary_key=True)
-#     )
-
+# Define the joint table
+user_bathrooms = db.Table(
+    'user_bathrooms',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('bathroom_id', db.Integer, db.ForeignKey('bathrooms.id')),
+    db.PrimaryKeyConstraint('user_id', 'bathroom_id')
+)
 
 class User(db.Model, SerializerMixin):
-    __tablename__= 'users'
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
-    # username = db.Column(db.String, unique=True)
-    # _password_hash = db.Column(db.String)
 
     reviews = db.relationship('Review', backref='user')
-    # bathroom = db.realtionship('Bathroom', secondary=user_bathrooms, backref='users')
+    bathrooms = db.relationship('Bathroom', secondary=user_bathrooms, back_populates='users')
 
-    # serialize_rules = (
-    #     '-users_reviews',
-    #     '-bathrooms_reviews',
-    #     '-reviews_user'
-    # )
+    serialize_rules = ('-reviews.user', '-bathrooms.users')
 
     def __repr__(self):
-        return f'<User {self.id} {self.username}>'
+        return f'<User {self.id} {self.first_name} {self.last_name}>'
 
-class Bathroom(db.Model, SerializerMixin ):
+class Bathroom(db.Model, SerializerMixin):
     __tablename__ = 'bathrooms'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -43,14 +37,17 @@ class Bathroom(db.Model, SerializerMixin ):
     zip_code = db.Column(db.Integer)
 
     reviews = db.relationship('Review', backref='bathroom')
+    users = db.relationship('User', secondary=user_bathrooms, back_populates='bathrooms')
 
+    serialize_rules = ('-reviews.bathroom', '-users.bathrooms')
 
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id')) 
-    bathroom_id = db.Column(db.Integer, db.ForeignKey('bathrooms.id')) 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    bathroom_id = db.Column(db.Integer, db.ForeignKey('bathrooms.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    # updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+    serialize_rules = ('-user.reviews', '-bathroom.reviews')
