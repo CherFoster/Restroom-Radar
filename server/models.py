@@ -1,6 +1,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy import ForeignKey, Table, Column, Integer, String, ForeignKeyConstraint
+from sqlalchemy.orm import validates
 from config import db
 
 # Define the joint table
@@ -15,8 +16,8 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
+    first_name = db.Column(db.String, nullable=False)  # String field with non-nullable constraint
+    last_name = db.Column(db.String, nullable=False)   # String field with non-nullable constraint
 
     reviews = db.relationship('Review', backref='user')
     bathrooms = db.relationship('Bathroom', secondary=user_bathrooms, back_populates='users')
