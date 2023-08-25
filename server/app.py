@@ -141,17 +141,5 @@ api.add_resource(Bathrooms, '/bathrooms')
 api.add_resource(Reviews, '/reviews')
 
 
-#need route to create & read,possibly update user
-#need route to create & read a bathroom
-#need route to create, read, update, delete review
-
-
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
-
-
-# GET /games would give back all of the games, index (READ)
-# POST /games would create one game, CREATE
-# GET /games/<int:id> gives us one game READ
-# PATCH /games/<int:id> updating a game
-# DELETE /games/<int:id> destroying a game
