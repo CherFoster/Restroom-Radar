@@ -93,6 +93,11 @@ class Reviews(Resource):
 def index():
     return '<h1> Welcome to Restroom Radar NYC </h1>'
 
+@app.route('/users', methods=['GET']) #master list of users
+def get_users():
+    all_users = User.query.all()
+    return [user.to_dict() for user in all_users]
+
 @app.route('/bathrooms', methods=['GET']) #master list of bathrooms
 def get_bathrooms():
     all_bathrooms = Bathroom.query.all()
@@ -133,7 +138,6 @@ def delete_review(review_id):
     db.session.commit()
 
     return make_response({'message': 'Review deleted successfully'}, 200)
-
 
 #function is used to associate your resource classes with specific URLs.
 api.add_resource(Users, '/users')

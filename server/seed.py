@@ -1,4 +1,3 @@
-
 from random import randint, choice as rc
 
 # Remote library imports
@@ -19,9 +18,20 @@ with app.app_context():
     
     User.query.delete()
     db.session.commit()
-    
 
-    
+    # Seed users
+    users = []
+
+    user1 = User(first_name='Virgo', last_name='Fierce')
+    users.append(user1)
+
+    user2 = User(first_name='NYC', last_name='Lover')
+    users.append(user2)
+
+    db.session.add_all(users)
+    db.session.commit()
+
+    # Seed bathrooms
     bathrooms = []
 
     b1 = Bathroom(bathroom_name='M&M New York' , street_num=1600, street_name='Broadway', city='New York', zip_code=10019 )
@@ -63,10 +73,34 @@ with app.app_context():
     b13 = Bathroom(bathroom_name='Kos Kaffee' , street_num=251, street_name='5th Avenue', city='Brooklyn', zip_code=10019 )
     bathrooms.append(b13)
 
-
     db.session.add_all(bathrooms)
     db.session.commit()
 
+    # Seed reviews
+    reviews = []
+
+    review1 = Review(content='Clean and spacious bathroom', user_id=user1.id, bathroom_id=b1.id)
+    reviews.append(review1)
+
+    review2 = Review(content='Very clean. Employees helpful with finding bathroom', user_id=user2.id, bathroom_id=b1.id)
+    reviews.append(review2)
+
+    review3 = Review(content='Clean and spacious bathroom', user_id=user1.id, bathroom_id=b3.id)
+    reviews.append(review3)
+
+    review4 = Review(content='Clean and spacious bathroom', user_id=user1.id, bathroom_id=b9.id)
+    reviews.append(review4)
+
+    review5 = Review(content='Clean and spacious bathroom', user_id=user1.id, bathroom_id=b11.id)
+    reviews.append(review5)
+
+    review6 = Review(content='Clean and spacious bathroom', user_id=user2.id, bathroom_id=b13.id)
+    reviews.append(review6)
+
+    
+
+    db.session.add_all(reviews)
+    db.session.commit()
 
 # if __name__ == '__main__':
 #     with app.app_context():
