@@ -1,18 +1,19 @@
-import React, { Link} from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
     <nav className='navbar'>
-        <div>Restroom Radar NYC</div>
-        <h3>Home</h3>
-        <h3>NYC Bathrooms</h3>
-        <h3>Add a New Bathroom</h3>
-        <h3>Contact Us</h3>
-    
-
+      {/* home route */}
+      <Link to="/">Restroom Radar NYC</Link>
+      {/* Master list of bathrooms + the ones created */}
+      <Link to="/bathrooms">NYC Bathrooms</Link>
+      {/* Create bathroom */}
+      <Link to="/add-bathroom">Add a New Bathroom</Link>
+      {/* form to contact if any questions, suggestion, reports */}
+      <Link to="/contact-us">Contact Us</Link>
     </nav>
-    
-  )
+  );
 }
 
 export default NavBar;

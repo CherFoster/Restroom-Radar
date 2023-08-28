@@ -1,5 +1,3 @@
-
-/* General Styles */
 body {
   font-family: 'Comic Sans MS', cursive, sans-serif;
   margin: 0;
@@ -38,7 +36,8 @@ body {
   align-items: center;
 }
 
-.navbar h3 {
+.navbar a {
+  text-decoration: none;
   font-size: 18px;
   font-weight: bold;
   margin: 0;
@@ -48,7 +47,7 @@ body {
   transition: color 0.3s ease-in-out;
 }
 
-.navbar h3:hover {
+.navbar a:hover {
   color: #3c3cff;
 }
 
@@ -61,8 +60,46 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center; /* Add this line to center the content */
 }
+
 /* Brand Styles */
 .brand {
   font-size: 28px;
   font-weight: bold;
+  color: #fefeff; /* Adjusted to match navbar text color */
+}
+
+/* Form Styles */
+.form {
+  text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form label {
+  font-weight: bold;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form button {
+  background-color: #4e4e52;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form button:hover {
+  background-color: #3030c6;
 }
