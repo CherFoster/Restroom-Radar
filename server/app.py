@@ -16,9 +16,13 @@ class Signup(Resource):
     def post(self):
         data = request.get_json()
         username = data.get("username")
-        password = data.get("passowrd")
+        password = data.get("password")
 
-        user = User(username=username, _password_hash=password)
+        user = User(
+            username=username, 
+            _password_hash=password
+            )
+        
         db.session.add(user)
         db.session.commit()
 
