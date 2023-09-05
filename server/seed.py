@@ -22,19 +22,12 @@ with app.app_context():
     # Seed users
     users = []
 
-    user1 = User(first_name='Virgo', last_name='Fierce')
-    users.append(user1)
+    pass
 
-    user2 = User(first_name='NYC', last_name='Lover')
-    users.append(user2)
-
-    db.session.add_all(users)
-    db.session.commit()
-
-    # Seed bathrooms
+    # Seed bathrooms ------------- I need to know how to have the image locked in whenever someone creates a bathroom
     bathrooms = []
 
-    b1 = Bathroom(bathroom_name='M&M New York' , street_num=1600, street_name='Broadway', city='New York', zip_code=10019 )
+    b1 = Bathroom(bathroom_name='M&M New York' , street_num=1600, street_name='Broadway', city='New York', zip_code=10019, image= 'https://images2.minutemediacdn.com/image/upload/c_crop,w_2121,h_1193,x_0,y_77/c_fill,w_1080,ar_16:9,f_auto,q_auto,g_auto/images%2FvoltaxMediaLibrary%2Fmmsport%2Fmentalfloss%2F01g4kfw8ppqvd45pjfaa.jpg' )
     bathrooms.append(b1)
 
     b2 = Bathroom(bathroom_name='Reniassance New York Times Square Hotel' , street_num=714, street_name='7th Avenue', city='New York', zip_code=10036 )
@@ -75,6 +68,8 @@ with app.app_context():
 
     db.session.add_all(bathrooms)
     db.session.commit()
+
+
 
     # Seed reviews
     reviews = []

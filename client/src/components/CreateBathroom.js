@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CreateBathroom() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [user, setUser] = useState("Add your First and Last name");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,13 +16,13 @@ function CreateBathroom() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
     }).then(() => {
-      history.push("/bathroom");
+      navigate("/bathroom");
     });
   };
 
   return (
     <div className="home-section">
-      <h2>Add A New Bathroom</h2>
+      <h2>Add A New Bathroom = NEEDS TO BE FORMIX</h2>
       <form className="form" onSubmit={handleSubmit}>
         <label>Bathroom Name:</label>
         <p>Need to add a description or instructions on how to title the name here...</p>

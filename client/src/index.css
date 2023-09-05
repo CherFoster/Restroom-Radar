@@ -103,3 +103,45 @@ body {
 .form button:hover {
   background-color: #3030c6;
 }
+
+/* Bathroom List Styles */
+.bathroom-list {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: left; /* Center the cards horizontally */
+}
+
+.bathroom-preview {
+  width: 200px; /* Adjust the width of the card */
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out; /* Add transition for hover effect */
+}
+
+.bathroom-preview:hover {
+  background-color: #3030c6; /* Change background color on hover */
+  transform: scale(1.05); /* Scale up on hover */
+}
+
+.bathroom-preview a {
+  text-decoration: none;
+  color: #333;
+}
+
+.bathroom-preview h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.bathroom-preview p {
+  margin: 0;
+}
+
+
+
+
