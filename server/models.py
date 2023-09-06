@@ -3,6 +3,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy import ForeignKey, Table, Column, Integer, String, ForeignKeyConstraint
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
+
 from config import db, bcrypt
 
 # Define the joint table
@@ -25,6 +26,18 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ('-reviews.user', '-bathrooms.users')
 
+    @validates('username')
+    def validate_username(self, key, username):
+        if not username:
+            raise ValueError('Username is required.')
+        elif len(username) < 8:
+            raise ValueError('Username must be at least 8 characters in length.')
+       
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            raise ValueError('Username is already taken.')
+        return username
+
     @hybrid_property
     def password_hash(self):
         raise Exception ("You cannot view the password")
@@ -33,8 +46,10 @@ class User(db.Model, SerializerMixin):
     @password_hash.setter
     def password_hash(self, password):
         hashed_password = bcrypt.generate_password_hash(password)
-        self._password_hash = hashed_password.decode('utf-8')
+        self._password_hash = hashed_password.decode('utf-8') 
 
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password)
 
     def __repr__(self):
         return f'<User {self.id} {self.username}>'

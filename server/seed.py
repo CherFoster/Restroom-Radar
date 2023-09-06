@@ -22,10 +22,10 @@ with app.app_context():
     # Seed users
     users = []
 
-    user1 = User(username='Ami', _password_hash='testprettytest')
+    user1 = User(username='Amii1234', _password_hash='testprettytest')
     users.append(user1)
 
-    user2 = User(username='Amyy', _password_hash='tetest')
+    user2 = User(username='Amyy5678', _password_hash='tetest')
     users.append(user2)
 
     # Seed bathrooms ------------- I need to know how to have the image locked in whenever someone creates a bathroom

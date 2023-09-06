@@ -1,38 +1,82 @@
-from flask import Flask, make_response, request, jsonify
+from flask import Flask, make_response, request, jsonify, session
 from flask_restful import Resource
 from flask_migrate import Migrate
+from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
 from models import User, Bathroom, Review
-
 
 class Users(Resource):
     def get(self):
         users = [user.to_dict() for user in User.query.all()]
         return make_response(users, 200)
     
+class UserResource(Resource):
+    def get(self, id):
+        user = User.query.filter_by(id=id).first()
+        return user.to_dict(), 200
+# to store user
+class CheckSession(Resource):
+    def get(self):
+        id = session.get("user_id")
+        if id:
+            user = User.query.filter_by(id=id).first
+            return user.to_dict(), 200
+        
+        return {}, 200
 
 class Signup(Resource):
+    def post(self):
+       
+        data = request.get_json()
+        username = data.get("username")
+        password = data.get("password")
+        try:
+            user = User(username=username)
+            
+            user.password_hash = password
+            
+            db.session.add(user)
+            db.session.commit()
+
+            session["user_id"] = user.id
+            
+            return user.to_dict(), 201
+    
+        except IntegrityError:
+            return{"error": "Username must be unique"}, 422
+        except ValueError as err:
+            return{"error": str(err)}, 422
+
+
+class Logout(Resource):
+    def delete(self):
+        if session.get("user_id"):
+            del session["user_id"]
+            return{'message': 'You are not logged in'}, 200
+        else:
+            return{'error': 'User already logged out'}, 401
+
+class Login(Resource):
     def post(self):
         data = request.get_json()
         username = data.get("username")
         password = data.get("password")
 
-        user = User(
-            username=username, 
-            _password_hash=password
-            )
-        
-        db.session.add(user)
-        db.session.commit()
-
-        return user.to_dic(), 201
+        # does user exist
+        user = User.query.filter_by(username=username).first()
+        # check is the user's password matche's users accont
+        if user and user.authenticate(password):
+            session["user_id"] = user.id
+            return user.to_dict(), 200
+        else:
+            return {"error": "Username or Passowrd does not match"}, 422
 
 class Bathrooms(Resource):
     def get(self):
         bathroom = [bathroom.to_dict() for bathroom in Bathroom.query.all()]
         return make_response(bathroom, 200)
-    
+
     def post(self):
         request_json = request.get_json()
 
@@ -54,6 +98,11 @@ class Bathrooms(Resource):
         db.session.commit()
 
         return make_response({'message': 'Bathroom created successfully'}, 201)
+    
+class BathroomResource(Resource):
+    def get(self, id):
+        bathroom = Bathroom.query.filter_by(id=id).first()
+        return bathroom.to_dict(), 200
     
 
 class Reviews(Resource):
@@ -106,10 +155,18 @@ class Reviews(Resource):
 
 #function is used to associate your resource classes with specific URLs.
 api.add_resource(Users, '/users')
+api.add_resource(UserResource, '/user/<int:id>')
 api.add_resource(Signup, '/signup')
+api.add_resource(Logout, '/logout')
+api.add_resource(Login, '/login')
+api.add_resource(CheckSession, '/checksession')
 api.add_resource(Bathrooms, '/bathrooms')
+api.add_resource(BathroomResource, '/bathroom/<int:id>')
 api.add_resource(Reviews, '/reviews')
 
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
+
+

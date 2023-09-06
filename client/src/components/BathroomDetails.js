@@ -9,7 +9,7 @@ const BathroomDetails = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        fetch('http://127.0.0.1:5000/bathrooms/', { // Fixed the URL and used 'bathroom.id'
+        fetch('http://127.0.0.1:5555/bathrooms/', { // Fixed the URL and used 'bathroom.id'
             method: 'DELETE'
         }).then(() => {
             navigate.push('/bathrooms');
