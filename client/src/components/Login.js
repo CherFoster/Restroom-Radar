@@ -1,64 +1,63 @@
-import React, {useState} from 'react'
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-function Login({login}) {
-    const [values, setValues] = useState({
-        username: '',
-        password: '',
-      });
-    
-      const [errorMessage, setErrorMessage] = useState('');
-    
-      const handleChange = (e) => {
-        setValues({
-          ...values,
-          [e.target.name]: e.target.value,
-        });
-      };
-    
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        if (values.username.length < 7) {
-          setErrorMessage('Username must be at least seven characters long.');
-          return;
-        }
-        if (values.password.length === 0) {
-          setErrorMessage('Password should not be empty.');
-          return;
-        }
-        login(values);
-      };
-    
-      return (
-        <div className="form">
-          <h1>Log In</h1>
-          <form onSubmit={handleSubmit}>
+function Login({ login }) {
+  const initialValues = {
+    username: '',
+    password: '',
+  };
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(7, 'Username must be at least 7 characters long')
+      .required('Username is required'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters long'),
+  });
+
+  const handleSubmit = (values) => {
+    // Call your login function here with the form values
+    login(values);
+  };
+
+  return (
+    <div className="form">
+      <h1>Log In</h1>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {() => (
+          <Form>
             <div>
-              <label>Username</label>
-              <input
+              <label htmlFor="username">Username</label>
+              <Field
                 type="text"
-                required
-                name="username"
                 id="username"
-                value={values.username}
-                onChange={handleChange}
+                name="username"
+                required
               />
+              <ErrorMessage name="username" component="div" className="error" />
             </div>
             <div>
-              <label>Password</label>
-              <input
-                type="password" 
-                required
-                name="password"
+              <label htmlFor="password">Password</label>
+              <Field
+                type="password"
                 id="password"
-                value={values.password}
-                onChange={handleChange}
+                name="password"
+                required
               />
+              <ErrorMessage name="password" component="div" className="error" />
             </div>
-            <button>Login</button>
-            <p>{errorMessage}</p>
-          </form>
-        </div>
-      );
+            <button type="submit">Login</button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
 }
 
 export default Login;
