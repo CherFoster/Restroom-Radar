@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 function Signup({ login }) {
+
+  const navigate = useNavigate();
   const initialValues = {
     username: '',
     password: '',
@@ -20,6 +23,7 @@ function Signup({ login }) {
   const handleSubmit = (values) => {
     // Call your login or registration function here with the form values
     login(values);
+    navigate("/")
   };
 
   return (
@@ -32,7 +36,7 @@ function Signup({ login }) {
       >
         {() => (
           <Form>
-            <div>
+            <div className="form">
               <label htmlFor="username">Username</label>
               <Field
                 type="text"
@@ -41,8 +45,7 @@ function Signup({ login }) {
                 required
               />
               <ErrorMessage name="username" component="div" className="error" />
-            </div>
-            <div>
+
               <label htmlFor="password">Password</label>
               <Field
                 type="password"
@@ -51,8 +54,8 @@ function Signup({ login }) {
                 required
               />
               <ErrorMessage name="password" component="div" className="error" />
+              <button type="submit">Create User</button>
             </div>
-            <button type="submit">Create User</button>
             <h4>Create a username and password. Username must be seven or more characters long. Password should be unique.</h4>
           </Form>
         )}

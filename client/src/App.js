@@ -9,6 +9,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 
 function App() {
+  const [data, setData] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false)
 
@@ -25,7 +26,7 @@ function App() {
   useEffect(() => {
     fetch("/bathrooms")
     .then(resp => resp.json())
-    .then(data => console.log(data))
+    .then(data => setData(data))
 
   }, [])
 
@@ -38,7 +39,7 @@ function App() {
         <Route path="/signup" element={<Signup login={login}/>} />
         <Route path="/login" element={<Login login={login} />} />
         <Route path="/add-bathroom" element={<CreateBathroom />} />
-        <Route path="/bathrooms" element={<BathroomDetails/>} />
+        <Route path="/bathroom/:id" element={<BathroomDetails data={data}/>} />
       </Routes>
     </Router>
   );

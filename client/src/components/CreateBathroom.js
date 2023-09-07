@@ -8,18 +8,24 @@ function CreateBathroom() {
 
   const initialValues = {
     title: "",
-    body: "",
-    user: "Add your First and Last name",
+    streetNumber: "",
+    streetName: "",
+    city: "",
+    zipCode: "",
+    // user: "",
   };
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Bathroom Name is required"),
-    body: Yup.string().required("Bathroom Address is required"),
-    user: Yup.string().required("User is required"),
+    streetNumber: Yup.string().required("Street Number is required"),
+    streetName: Yup.string().required("Street Name is required"),
+    city: Yup.string().required("City is required"),
+    zipCode: Yup.string().required("Zip Code is required"),
+    // user: Yup.string().required("User is required"),
   });
 
   const handleSubmit = (values) => {
-    fetch("http://127.0.0.1:5000/", {
+    fetch("http://127.0.0.1:5555", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -31,6 +37,7 @@ function CreateBathroom() {
   return (
     <div className="home-section">
       <h2>Add A New Bathroom</h2>
+      <p>Here is a chance to share a bathroom you've spotted in NYC. Very easy to add one. Follow the prompts below. </p>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -38,18 +45,29 @@ function CreateBathroom() {
       >
         <Form className="form">
           <label htmlFor="title">Bathroom Name:</label>
-          <p>Need to add a description or instructions on how to title the name here...</p>
-          <Field type="text" id="title" name="title" required />
+          <p>Try to add as much detail as professionally possible. ex. Looney Tunes Bathroom - 5th Floor</p>
+          <Field type="text" id="title" name="title" placeholder="add bathroom" required />
           <ErrorMessage name="title" component="div" className="error" />
 
-          <label htmlFor="body">Bathroom Address:</label>
-          <p>Need to add address breakdown here...</p>
-          <Field as="textarea" id="body" name="body" required />
-          <ErrorMessage name="body" component="div" className="error" />
+          <label htmlFor="streetNumber">Street Number:</label>
+          <Field type="text" id="streetNumber" name="streetNumber" placeholder="street number" required />
+          <ErrorMessage name="streetNumber" component="div" className="error" />
 
+          <label htmlFor="streetName">Street Name:</label>
+          <Field type="text" id="streetName" name="streetName" placeholder="Street number" required />
+          <ErrorMessage name="streetName" component="div" className="error" />
+
+          <label htmlFor="city">City:</label>
+          <Field type="text" id="city" name="city" placeholder="city" required />
+          <ErrorMessage name="city" component="div" className="error" />
+
+          <label htmlFor="zipCode">Zip Code:</label>
+          <Field type="text" id="zipCode" name="zipCode" placeholder="zip code" required />
+          <ErrorMessage name="zipCode" component="div" className="error" />
+{/* 
           <label htmlFor="user">User:</label>
-          <Field type="text" id="user" name="user" required />
-          <ErrorMessage name="user" component="div" className="error" />
+          <Field type="text" id="user" placeholder="add your username" name="user" required />
+          <ErrorMessage name="user" component="div" className="error" /> */}
 
           <button type="submit">ADD BATHROOM</button>
         </Form>

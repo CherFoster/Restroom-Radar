@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigator } from 'react-router-dom';
 
 function NavBar({loggedIn, logout}) {
-
+  // const navigate = useNavigate();
   const displayedLinks = loggedIn ? <>
   <nav className='navbar'>
       <Link to="/">Restroom Radar NYC</Link>
@@ -10,7 +9,7 @@ function NavBar({loggedIn, logout}) {
       <Link to="/add-bathroom">Add a New Bathroom</Link>
       <Link to="/logout">Log Out</Link>
   </nav>
-  </>: <>
+  </>:<>
   <nav>
       <Link to="/signup">Sign Up</Link>
       <br/>

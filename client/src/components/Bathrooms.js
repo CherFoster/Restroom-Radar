@@ -1,6 +1,7 @@
 import React from "react";
 import BathroomList from "./BathroomList";
 import useFetch from './useFetch';
+import Search from "./Search";
 
 //where I want to have the Bathrooms shown... maybe the details of the bathrooms?
 function Bathrooms() {
@@ -9,7 +10,7 @@ function Bathrooms() {
 
   return(
       <div className="blog">
-        <h2>NEED TO HAVE ALL BATHROOM CARDS LISTED HERE!</h2>
+        <Search/>
           { error && <div>{ error }</div> }
           { isPending && <div>Loading...</div> }
           { bathrooms && <BathroomList bathrooms={bathrooms}/> } 
