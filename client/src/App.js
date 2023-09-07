@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from './components/Home';
 import Bathrooms from './components/Bathrooms';
 import CreateBathroom from './components/CreateBathroom';
@@ -27,7 +27,6 @@ function App() {
     fetch("/bathrooms")
     .then(resp => resp.json())
     .then(data => setData(data))
-
   }, [])
 
   return (

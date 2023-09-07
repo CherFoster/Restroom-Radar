@@ -19,8 +19,8 @@ function CreateBathroom() {
     title: Yup.string().required("Bathroom Name is required"),
     streetNumber: Yup.string().required("Street Number is required"),
     streetName: Yup.string().required("Street Name is required"),
-    city: Yup.string().required("City is required"),
-    zipCode: Yup.string().required("Zip Code is required"),
+    city: Yup.string().required("City is required"), //needs to be Bk,M,SI,Q,Bx
+    zipCode: Yup.string().max(5).required("Zip Code is required"), 
     // user: Yup.string().required("User is required"),
   });
 

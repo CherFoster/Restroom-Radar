@@ -22,7 +22,7 @@ const BathroomDetails = ({data}) => {
             {bathroom && ( 
                 <article>
                     <h2>{bathroom.bathroom_name}</h2>
-                    <div>{bathroom.bathroom_review}</div> 
+                    <div>{bathroom.bathroom_id}</div> 
                     <button onClick={handleClick}>delete</button>
                 </article>
             )}

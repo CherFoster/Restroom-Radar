@@ -1,8 +1,10 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 function Login({ login }) {
+  const navigate = useNavigate();
   const initialValues = {
     username: '',
     password: '',
@@ -20,6 +22,7 @@ function Login({ login }) {
   const handleSubmit = (values) => {
     // Call your login function here with the form values
     login(values);
+    navigate("/")
   };
 
   return (
