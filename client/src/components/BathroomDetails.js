@@ -1,10 +1,12 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useFetch from './useFetch';
+import Reviews from './Reviews';
 
 const BathroomDetails = ({data}) => {
     const { id } = useParams();
     const bathroom = data.find((bathroom) => bathroom.id===parseInt(id))
+    
 
     const navigate = useNavigate();
     
@@ -21,9 +23,10 @@ const BathroomDetails = ({data}) => {
             {!bathroom && <div>Loading...</div>}
             {bathroom && ( 
                 <article>
-                    <h2>{bathroom.bathroom_name}</h2>
-                    <div>{bathroom.bathroom_id}</div> 
-                    <button onClick={handleClick}>delete</button>
+                    <h1>{bathroom.bathroom_name}</h1>
+                    <h2>{bathroom.bathroom_city}</h2>
+                    <div><Reviews/></div> 
+                    <button onClick={handleClick}>delete</button> 
                 </article>
             )}
         </div>

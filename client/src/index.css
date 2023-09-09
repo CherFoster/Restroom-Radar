@@ -40,8 +40,7 @@ body {
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
-  margin: 0;
-  padding: 0;
+  margin-right: 15px; /* Add margin to the right to separate the links */
   color: #fefeff;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
@@ -51,6 +50,10 @@ body {
   color: #3c3cff;
 }
 
+/* Add margin to the right of the last link in the navigation bar */
+.navbar a:last-child {
+  margin-right: 0;
+}
 /* Home Section Styles */
 .home-section {
   background-color: white;
@@ -98,6 +101,20 @@ body {
   padding: 10px 15px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+}
+
+.form select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff; /* Match the background color of the text boxes */
+}
+
+/* Style the "City" dropdown label to match the styling of other labels */
+.form label[for="city"] {
+  font-weight: bold;
 }
 
 .form button:hover {

@@ -18,11 +18,6 @@ function App() {
     setLoggedIn(true);
   }
 
-  const logout = ()=> {
-    setCurrentUser(null);
-    setLoggedIn(false);
-  }
-
   useEffect(() => {
     fetch("/bathrooms")
     .then(resp => resp.json())
@@ -31,7 +26,7 @@ function App() {
 
   return (
     <Router>
-      <NavBar logout={logout} loggedIn={loggedIn}/>
+      <NavBar setCurrentUser={setCurrentUser} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/bathrooms" element={<Bathrooms />} />
