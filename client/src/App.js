@@ -17,7 +17,7 @@ function App() {
     setCurrentUser(user);
     setLoggedIn(true);
   }
-
+//missing useEffect... need cookie to hold user add state?
   useEffect(() => {
     fetch("/bathrooms")
     .then(resp => resp.json())
@@ -33,7 +33,7 @@ function App() {
         <Route path="/signup" element={<Signup login={login}/>} />
         <Route path="/login" element={<Login login={login} />} />
         <Route path="/add-bathroom" element={<CreateBathroom />} />
-        <Route path="/bathroom/:id" element={<BathroomDetails data={data}/>} />
+        <Route path="/bathrooms/:id" element={<BathroomDetails data={data}/>} />
       </Routes>
     </Router>
   );

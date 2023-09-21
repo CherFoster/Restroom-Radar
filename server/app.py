@@ -99,11 +99,21 @@ class Bathrooms(Resource):
 
         return make_response({'message': 'Bathroom created successfully'}, 201)
     
+    
 class BathroomResource(Resource):
     def get(self, id):
-        bathroom = Bathroom.query.filter_by(id=id).first()
-        return bathroom.to_dict(), 200
+        bathrooms = Bathroom.query.filter_by(id=id).first()
+        return bathrooms.to_dict(), 200
     
+    def delete(self, id):
+        bathrooms = Bathroom.query.get(id)
+        if not bathrooms:
+            return make_response({'message': 'Bathroom not found'}, 404)
+
+        db.session.delete(bathrooms)
+        db.session.commit()
+
+        return make_response({'message': 'Bathroom deleted successfully'}, 200)
 
 class Reviews(Resource):
     def get(self):
@@ -155,13 +165,13 @@ class Reviews(Resource):
 
 #function is used to associate your resource classes with specific URLs.
 api.add_resource(Users, '/users')
-api.add_resource(UserResource, '/user/<int:id>')
+api.add_resource(UserResource, '/users/<int:id>')
 api.add_resource(Signup, '/signup')
 api.add_resource(Logout, '/logout')
 api.add_resource(Login, '/login')
 api.add_resource(CheckSession, '/checksession')
 api.add_resource(Bathrooms, '/bathrooms')
-api.add_resource(BathroomResource, '/bathroom/<int:id>')
+api.add_resource(BathroomResource, '/bathrooms/<int:id>')
 api.add_resource(Reviews, '/reviews')
 
 
@@ -170,3 +180,4 @@ if __name__ == '__main__':
 
 
 
+# export FLASK_RUN_PORT=5555

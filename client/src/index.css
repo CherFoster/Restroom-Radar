@@ -40,7 +40,7 @@ body {
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
-  margin-right: 15px; /* Add margin to the right to separate the links */
+  margin-right: 15px;
   color: #fefeff;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
@@ -54,6 +54,7 @@ body {
 .navbar a:last-child {
   margin-right: 0;
 }
+
 /* Home Section Styles */
 .home-section {
   background-color: white;
@@ -61,14 +62,14 @@ body {
   margin: 25px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center; /* Add this line to center the content */
+  text-align: center;
 }
 
 /* Brand Styles */
 .brand {
   font-size: 28px;
   font-weight: bold;
-  color: #fefeff; /* Adjusted to match navbar text color */
+  color: #fefeff;
 }
 
 /* Form Styles */
@@ -109,7 +110,7 @@ body {
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #ffffff; /* Match the background color of the text boxes */
+  background-color: #ffffff;
 }
 
 /* Style the "City" dropdown label to match the styling of other labels */
@@ -127,22 +128,22 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: left; /* Center the cards horizontally */
+  justify-content: left;
 }
 
 .bathroom-preview {
-  width: 200px; /* Adjust the width of the card */
+  width: 200px;
   background-color: #f9f9f9;
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out; /* Add transition for hover effect */
+  transition: transform 0.3s ease-in-out;
 }
 
 .bathroom-preview:hover {
-  background-color: #3030c6; /* Change background color on hover */
-  transform: scale(1.05); /* Scale up on hover */
+  background-color: #3030c6;
+  transform: scale(1.05);
 }
 
 .bathroom-preview a {
@@ -159,3 +160,73 @@ body {
   margin: 0;
 }
 
+/* Reviews Styles */
+.reviews {
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #4e4e52;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #666666;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #666666;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #3030c6;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+}
+
+.review-item {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-item button {
+  margin-left: 10px;
+}
