@@ -3,9 +3,8 @@ import BathroomList from "./BathroomList";
 import useFetch from './useFetch';
 // import Search from "./Search";
 
-//where I want to have the Bathrooms shown... maybe the details of the bathrooms?
 function Bathrooms() {
-  const {error, isPending, data: bathrooms } = useFetch('http://127.0.0.1:5555/bathrooms')
+  const {error, isPending, data: bathrooms } = useFetch('/bathrooms')
  
 
   return(

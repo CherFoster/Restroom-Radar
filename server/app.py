@@ -114,6 +114,18 @@ class BathroomResource(Resource):
         db.session.commit()
 
         return make_response({'message': 'Bathroom deleted successfully'}, 200)
+    
+    def patch(sefl, id):
+        bathrooms= Bathroom.query.filter_by(id=id).first()
+        if not bathrooms:
+            return make_response({'message': 'Bathroom not found'}, 404)
+        request_json = request.get_json()
+        for key in request_json:
+            setattr(bathrooms,key,request_json[key])
+        
+        db.session.commit()
+
+        return make_response({'message': 'Bathroom edit successfully'}, 200)
 
 class Reviews(Resource):
     def get(self):
@@ -138,10 +150,19 @@ class Reviews(Resource):
 
         return make_response({'message': 'Review created successfully'}, 201)
 
-    def put(self, review_id):
+
+class ReviewsResource(Resource):
+    def get(self, id):
+        reviews = Review.query.filter_by(id=id).first()
+        if not reviews:
+            return make_response({'message': 'There are no reviews'}, 404)
+            
+        return reviews.to_dict(), 200
+    
+    def patch(self, id):
         request_json = request.get_json()
 
-        review = Review.query.get(review_id)
+        review = Review.query.get(id)
         if not review:
             return make_response({'message': 'Review not found'}, 404)
 
@@ -152,8 +173,8 @@ class Reviews(Resource):
 
         return make_response({'message': 'Review updated successfully'}, 200)
 
-    def delete(self, review_id):
-        review = Review.query.get(review_id)
+    def delete(self, id):
+        review = Review.query.get(id)
         if not review:
             return make_response({'message': 'Review not found'}, 404)
 
@@ -161,6 +182,7 @@ class Reviews(Resource):
         db.session.commit()
 
         return make_response({'message': 'Review deleted successfully'}, 200)
+
 
 
 #function is used to associate your resource classes with specific URLs.
@@ -173,6 +195,7 @@ api.add_resource(CheckSession, '/checksession')
 api.add_resource(Bathrooms, '/bathrooms')
 api.add_resource(BathroomResource, '/bathrooms/<int:id>')
 api.add_resource(Reviews, '/reviews')
+api.add_resource(ReviewsResource, '/reviews/<int:id>')
 
 
 if __name__ == '__main__':

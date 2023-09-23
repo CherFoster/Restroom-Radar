@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import EditBathroom from './EditBathroom';
 
 function BathroomList({ bathrooms }) {
   const navigate = useNavigate();
@@ -12,12 +13,8 @@ function BathroomList({ bathrooms }) {
     });
   }
 
-  const handleEdit = (id) => {
-    fetch('/bathrooms/' + id,{
-      method: 'PUT'
-    }).then(() => {
-      navigate('/bathrooms')
-    })
+  const handleEdit = () => {
+    <Link to={EditBathroom}/>
   }
 
   return (
@@ -30,7 +27,7 @@ function BathroomList({ bathrooms }) {
             <p>Address: {bathroom.street_num} {bathroom.street_name}</p>
             <p>City: {bathroom.city}</p>
             <p>Zip Code: {bathroom.zip_code}</p>
-            <button onClick={() => handleEdit(bathroom.id)} className="btn-primary">Edit</button>
+            <button onClick={handleEdit()} className="btn-primary">Edit</button>
             <button onClick={() => handleDelete(bathroom.id)} className="btn-primary">Delete</button>
           </Link>
         </div>

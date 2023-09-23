@@ -28,6 +28,9 @@ with app.app_context():
     user2 = User(username='Amyy5678', _password_hash='tetest')
     users.append(user2)
 
+    db.session.add_all(users)
+    db.session.commit()
+
     # Seed bathrooms ------------- I need to know how to have the image locked in whenever someone creates a bathroom
     bathrooms = []
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function CreateBathroom() {
+function EditBathroom() {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -26,7 +26,7 @@ function CreateBathroom() {
 
   const handleSubmit = (values) => {
     fetch("http://127.0.0.1:5555/bathrooms", {
-      method: "POST",
+      method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     })
@@ -53,7 +53,7 @@ function CreateBathroom() {
   ];
   return (
     <div className="home-section">
-      <h2>Add A New Bathroom</h2>
+      <h2>Edit Bathroom</h2>
       <p>Here is a chance to share a bathroom you've spotted in NYC. Very easy to add one. Follow the prompts below. </p>
       <Formik
         initialValues={initialValues}
@@ -93,11 +93,11 @@ function CreateBathroom() {
           <Field type="text" id="user" placeholder="add your username" name="user" required />
           <ErrorMessage name="user" component="div" className="error" /> */}
 
-          <button type="submit">Add Bathroom</button>
+          <button type="submit">Edit Bathroom</button>
         </Form>
       </Formik>
     </div>
   );
 }
 
-export default CreateBathroom;
+export default EditBathroom
