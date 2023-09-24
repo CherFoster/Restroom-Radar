@@ -25,7 +25,7 @@ function CreateBathroom() {
   });
 
   const handleSubmit = (values) => {
-    fetch("http://127.0.0.1:5555/bathrooms", {
+    fetch("/bathrooms", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),

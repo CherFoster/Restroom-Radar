@@ -20,7 +20,7 @@ class CheckSession(Resource):
     def get(self):
         id = session.get("user_id")
         if id:
-            user = User.query.filter_by(id=id).first
+            user = User.query.filter_by(id=id).first()
             return user.to_dict(), 200
         
         return {}, 200
@@ -99,7 +99,6 @@ class Bathrooms(Resource):
 
         return make_response({'message': 'Bathroom created successfully'}, 201)
     
-    
 class BathroomResource(Resource):
     def get(self, id):
         bathrooms = Bathroom.query.filter_by(id=id).first()
@@ -115,7 +114,7 @@ class BathroomResource(Resource):
 
         return make_response({'message': 'Bathroom deleted successfully'}, 200)
     
-    def patch(sefl, id):
+    def patch(self, id):
         bathrooms= Bathroom.query.filter_by(id=id).first()
         if not bathrooms:
             return make_response({'message': 'Bathroom not found'}, 404)
@@ -123,6 +122,7 @@ class BathroomResource(Resource):
         for key in request_json:
             setattr(bathrooms,key,request_json[key])
         
+        db.session.add(bathrooms)
         db.session.commit()
 
         return make_response({'message': 'Bathroom edit successfully'}, 200)
@@ -148,7 +148,7 @@ class Reviews(Resource):
         db.session.add(review)
         db.session.commit()
 
-        return make_response({'message': 'Review created successfully'}, 201)
+        return make_response(review.to_dict(), 201)
 
 
 class ReviewsResource(Resource):

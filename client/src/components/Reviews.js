@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 
+
 function Reviews({ reviews }) {
-  const [newReview, setNewReview] = useState({
-    content: '',
-    user_id: '', // You may need to get the user_id from your authentication system
-    bathroom_id: '', // You should specify the bathroom_id when creating a review
-  });
+  const [newReview, setNewReview] = useState({ content: '' });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -13,23 +10,23 @@ function Reviews({ reviews }) {
   };
 
   const handleSubmit = () => {
-    // Send a POST request to your backend API to create the review
-    fetch('/reviews', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    fetch("/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newReview),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the server, e.g., show a success message
-        console.log(data);
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
       })
-      .catch((error) => {
-        // Handle errors
-        console.error(error);
-      });
+      .then((data) => {
+        console.log(data)
+      })
+      // .catch((error) => {
+      //   console.error("Fetch error:", error);
+      // });
   };
 
   return (

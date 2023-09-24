@@ -45,8 +45,8 @@ class User(db.Model, SerializerMixin):
 # creating setter to create value for user.password_hash
     @password_hash.setter
     def password_hash(self, password):
-        hashed_password = bcrypt.generate_password_hash(password)
-        self._password_hash = hashed_password.decode('utf-8') 
+        hashed_password = bcrypt.generate_password_hash(password) #byte created
+        self._password_hash = hashed_password.decode('utf-8') #string of characters
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password)
