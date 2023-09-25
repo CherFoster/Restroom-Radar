@@ -18,16 +18,15 @@ class UserResource(Resource):
 # to store user
 class CheckSession(Resource):
     def get(self):
-        id = session.get("user_id")
-        if id:
-            user = User.query.filter_by(id=id).first()
-            return user.to_dict(), 200
-        
-        return {}, 200
+        try:
+            user = User.query.filter_by(id=session['user_id']).first()
+            response = make_response(user.to_dict(), 200)
+            return response
+        except:
+            return {"error": "Please log in"}, 401
 
 class Signup(Resource):
     def post(self):
-       
         data = request.get_json()
         username = data.get("username")
         password = data.get("password")
@@ -65,12 +64,16 @@ class Login(Resource):
 
         # does user exist
         user = User.query.filter_by(username=username).first()
-        # check is the user's password matche's users accont
-        if user and user.authenticate(password):
-            session["user_id"] = user.id
-            return user.to_dict(), 200
+        # check is the user's password matches users account
+        if user:
+            if user.authenticate(password):
+                session["user_id"] = user.id
+                return user.to_dict(), 200
+            else:
+                return {"error": "Password is incorrect"}, 422
         else:
-            return {"error": "Username or Passowrd does not match"}, 422
+            return {"error": "Username not found"}, 422
+
 
 class Bathrooms(Resource):
     def get(self):
@@ -191,7 +194,7 @@ api.add_resource(UserResource, '/users/<int:id>')
 api.add_resource(Signup, '/signup')
 api.add_resource(Logout, '/logout')
 api.add_resource(Login, '/login')
-api.add_resource(CheckSession, '/checksession')
+api.add_resource(CheckSession, '/check_session')
 api.add_resource(Bathrooms, '/bathrooms')
 api.add_resource(BathroomResource, '/bathrooms/<int:id>')
 api.add_resource(Reviews, '/reviews')

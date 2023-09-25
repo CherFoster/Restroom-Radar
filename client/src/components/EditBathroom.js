@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function EditBathroom() {
-  const navigate = useNavigate();
+function EditBathroom({data}) {
+  const navigate = useNavigate(); 
 
   const initialValues = {
-    bathroom_name: "", 
-    street_num: "",    
-    street_name: "",   
-    city: "",          
-    zip_code: "",
+    bathroom_name: data.bahtroom.bathroom_name, 
+    street_num: data.bathroom.street_num,    
+    street_name: data.bathroom.street_name,   
+    city: data.bathroom.city,          
+    zip_code: data.bathroom.zip_code,
     // user: "",
   };
 
@@ -25,7 +25,7 @@ function EditBathroom() {
   });
 
   const handleSubmit = (values) => {
-    fetch("http://127.0.0.1:5555/bathrooms", {
+    fetch("/bathrooms", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -37,11 +37,8 @@ function EditBathroom() {
         return response.json();
       })
       .then(() => {
-        navigate("/bathrooms");
+        navigate("/bathrooms/:id");
       })
-      // .catch((error) => {
-      //   console.error("Fetch error:", error);
-      // });
   };
 
   const cityOptions = [
@@ -54,7 +51,6 @@ function EditBathroom() {
   return (
     <div className="home-section">
       <h2>Edit Bathroom</h2>
-      <p>Here is a chance to share a bathroom you've spotted in NYC. Very easy to add one. Follow the prompts below. </p>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

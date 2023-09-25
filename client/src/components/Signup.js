@@ -6,10 +6,13 @@ import * as Yup from 'yup';
 function Signup({ login }) {
 
   const navigate = useNavigate();
+  
   const initialValues = {
     username: '',
     password: '',
   };
+
+  // need to fetch to store creaetd user (SignUp)
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()
@@ -21,10 +24,27 @@ function Signup({ login }) {
   });
 
   const handleSubmit = (values) => {
-    // Call your login or registration function here with the form values
-    login(values);
-    navigate("/")
-  };
+      fetch("/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then(() => {
+          login(values)
+          navigate("/bathrooms");
+        })
+        .catch((error) => {
+          console.error("Fetch error:", error);
+        });
+    };
+    // login(values);
+    // navigate("/")
 
   return (
     <div>

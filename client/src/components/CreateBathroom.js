@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function CreateBathroom() {
+function CreateBathroom({handleAddBathroom}) {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -37,11 +37,12 @@ function CreateBathroom() {
         return response.json();
       })
       .then(() => {
+        handleAddBathroom(values)
         navigate("/bathrooms");
       })
-      // .catch((error) => {
-      //   console.error("Fetch error:", error);
-      // });
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
   };
 
   const cityOptions = [

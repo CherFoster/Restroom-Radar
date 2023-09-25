@@ -9,6 +9,7 @@ function Login({ login }) {
     username: '',
     password: '',
   };
+// need to do a fetch to create login session (LogIn)
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()

@@ -40,16 +40,16 @@ class User(db.Model, SerializerMixin):
 
     @hybrid_property
     def password_hash(self):
-        raise Exception ("You cannot view the password")
+        raise Exception("You cannot view the password")
     
 # creating setter to create value for user.password_hash
     @password_hash.setter
     def password_hash(self, password):
-        hashed_password = bcrypt.generate_password_hash(password) #byte created
+        hashed_password = bcrypt.generate_password_hash(password.encode('utf-8')) #byte created
         self._password_hash = hashed_password.decode('utf-8') #string of characters
 
     def authenticate(self, password):
-        return bcrypt.check_password_hash(self._password_hash, password)
+        return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
     def __repr__(self):
         return f'<User {self.id} {self.username}>'
