@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -9,7 +9,9 @@ function Login({ login }) {
     username: '',
     password: '',
   };
-// need to do a fetch to create login session (LogIn)
+
+  // State variable to track login status
+  const [loginError, setLoginError] = useState(null);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string()
@@ -21,9 +23,25 @@ function Login({ login }) {
   });
 
   const handleSubmit = (values) => {
-    // Call your login function here with the form values
-    login(values);
-    navigate("/")
+    fetch("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(() => {
+        login(values);
+        navigate("/bathrooms");
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+        setLoginError("Incorrect username or password. Please try again.");
+      });
   };
 
   return (
@@ -57,6 +75,7 @@ function Login({ login }) {
               <ErrorMessage name="password" component="div" className="error" />
             </div>
             <button type="submit">Login</button>
+            {loginError && <div className="error">{loginError}</div>}
           </Form>
         )}
       </Formik>

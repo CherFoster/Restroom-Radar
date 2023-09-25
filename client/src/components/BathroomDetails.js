@@ -4,14 +4,16 @@ import Reviews from './Reviews';
 
 const BathroomDetails = ({ data, currentUser }) => {
   const [currentBathroom, setCurrentBathroom] = useState(data)
+  // Get the 'id' parameter from the URL using useParams
   const { id } = useParams();
 
-  useEffect((currentBathroom) => {
+  useEffect(() => {
     fetch("/bathrooms/" + id)
     .then(resp => resp.json())
     .then(data=> setCurrentBathroom(data))
-  }, [])
+  }, [id])
 
+  //to find and store a specific bathroom where the id matches
   const bathroom = data.find((bathroom) => bathroom.id === parseInt(id));
   // const navigate = useNavigate();
 
