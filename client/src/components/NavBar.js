@@ -4,6 +4,7 @@ function NavBar({loggedIn, setCurrentUser, setLoggedIn}) {
 
   const navigate = useNavigate();
 
+  // this might be in complete!!!!!!!!!!!!!!!!! REGINA SCREAM!
   const logout = ()=> {
     setCurrentUser(null);
     setLoggedIn(false);

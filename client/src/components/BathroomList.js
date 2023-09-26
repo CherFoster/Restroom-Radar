@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import EditBathroom from './EditBathroom';
 
-function BathroomList({ bathrooms, handleDeleteBathroom }) {
-  const [bathroomEdit, setBathroomEdit] = useState(false)
+function BathroomList({ bathrooms, handleDeleteBathroom, handleEditBathroom }) {
+  const [allBathrooms, setAllBathrooms] = useState(bathrooms)
   const navigate = useNavigate();
 
   const handleDelete = (id) => {
@@ -15,14 +14,26 @@ function BathroomList({ bathrooms, handleDeleteBathroom }) {
     });
   }
 
-  const handleEdit = () => {
-    <Link to={
-      <EditBathroom/>}/>
+  const handleEdit = (id) => {
+    fetch('/bathrooms/' + id, {
+      method: 'PATCH'
+    }).then(() => {
+      handleEditBathroom(id)
+      navigate('/bathrooms');
+    });
   }
+  //  I think I am missing the fields for the edit? maybe send out to another component?
+  
+
+  useEffect(() => {
+    fetch("/bathrooms")
+    .then(resp => resp.json())
+    .then(data=> setAllBathrooms(data))
+  }, [bathrooms])
 
   return (
     <div className="bathroom-list">
-      {bathrooms.map((bathroom, i) => (
+      {allBathrooms.map((bathroom, i) => (
         <div className="bathroom-preview" key={i}>
           <Link to={`/bathrooms/${bathroom.id}`}>
             <h2>{bathroom.bathroom_name}</h2>
@@ -30,7 +41,7 @@ function BathroomList({ bathrooms, handleDeleteBathroom }) {
             <p>Address: {bathroom.street_num} {bathroom.street_name}</p>
             <p>City: {bathroom.city}</p>
             <p>Zip Code: {bathroom.zip_code}</p>
-            <button onClick={handleEdit()} className="btn-primary">Edit</button>
+            <button onClick={() => handleEdit(bathroom.id)} className="btn-primary">Edit</button>
             <button onClick={() => handleDelete(bathroom.id)} className="btn-primary">Delete</button>
           </Link>
         </div>

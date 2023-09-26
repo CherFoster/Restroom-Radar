@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Reviews from './Reviews';
 
 const BathroomDetails = ({ data, currentUser }) => {
-  const [currentBathroom, setCurrentBathroom] = useState(data)
+  // const [currentBathroom, setCurrentBathroom] = useState({})
   // Get the 'id' parameter from the URL using useParams
   const { id } = useParams();
 
-  useEffect(() => {
-    fetch("/bathrooms/" + id)
-    .then(resp => resp.json())
-    .then(data=> setCurrentBathroom(data))
-  }, [id])
-
   //to find and store a specific bathroom where the id matches
   const bathroom = data.find((bathroom) => bathroom.id === parseInt(id));
-  // const navigate = useNavigate();
+  console.log(id)
+
+  // useEffect(() => {
+  //   fetch("/bathrooms/")
+  //   .then(resp => resp.json())
+  //   .then(data=> setCurrentBathroom(data))
+  // }, [])
+
+  console.log(bathroom)
 
   return (
     <div className="blog-details">

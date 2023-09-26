@@ -13,9 +13,7 @@ function App() {
   const [data, setData] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [loggedIn, setLoggedIn] = useState(false)
-
-  console.log(data)
-
+  
   const login = (user) => {
     setCurrentUser(user);
     setLoggedIn(true);
@@ -49,13 +47,27 @@ function App() {
     setData(updatedDeleteBath)
   }
   
+  const handleEditBathroom = (editBathroom) => {
+    let updatedBathroom = data.map(bathroom => {
+      if (bathroom.id === editBathroom.id){
+        return editBathroom
+      }else{
+        return bathroom
+      }
+    })
+    setData(updatedBathroom)
+  }
+  console.log()
+  // const handleEditBathoom = () => {
+  //   let updatedEditBathoom = 
+  // }
 
   return (
     <Router>
       <NavBar setCurrentUser={setCurrentUser} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/bathrooms" element={<Bathrooms data={data} handleDeleteBathroom={handleDeleteBathroom}/>} />
+        <Route path="/bathrooms" element={<Bathrooms data={data} handleDeleteBathroom={handleDeleteBathroom} handleEditBathroom={handleEditBathroom}/>} />
         <Route path="/signup" element={<Signup login={login}/>} />
         <Route path="/login" element={<Login login={login} />} />
         <Route path="/add-bathroom" element={<CreateBathroom handleAddBathroom={handleAddBathroom}/>} />
