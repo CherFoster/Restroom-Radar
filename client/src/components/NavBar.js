@@ -4,12 +4,16 @@ function NavBar({loggedIn, setCurrentUser, setLoggedIn}) {
 
   const navigate = useNavigate();
 
-  // this might be in complete!!!!!!!!!!!!!!!!! REGINA SCREAM!
-  const logout = ()=> {
-    setCurrentUser(null);
-    setLoggedIn(false);
-    navigate("/signup")
+  const logout = () => {
+    fetch('/logout', {
+      method: 'DELETE'
+    }).then(() => {
+      setCurrentUser(null);
+      setLoggedIn(false);
+      navigate("/")
+    });
   }
+
 
   const displayedLinks = loggedIn ? <>
   <nav className='navbar'>

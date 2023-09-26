@@ -100,7 +100,7 @@ class Bathrooms(Resource):
         db.session.add(bathroom)
         db.session.commit()
 
-        return make_response({'message': 'Bathroom created successfully'}, 201)
+        return bathroom.to_dict(), 200
     
 class BathroomResource(Resource):
     def get(self, id):
@@ -128,7 +128,7 @@ class BathroomResource(Resource):
         db.session.add(bathrooms)
         db.session.commit()
 
-        return make_response({'message': 'Bathroom edit successfully'}, 200)
+        return bathrooms.to_dict(), 200
 
 class Reviews(Resource):
     def get(self):

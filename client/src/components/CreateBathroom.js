@@ -36,8 +36,8 @@ function CreateBathroom({handleAddBathroom}) {
         }
         return response.json();
       })
-      .then(() => {
-        handleAddBathroom(values)
+      .then((data) => {
+        handleAddBathroom(data)
         navigate("/bathrooms");
       })
       .catch((error) => {
